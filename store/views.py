@@ -3,10 +3,23 @@ from django.http import JsonResponse
 import json
 import datetime
 from django.views.decorators.csrf import csrf_exempt
+from django.views.generic import DetailView
 from .models import *
 from . utils import cookieCart, cartData, guestOrder
 
 # Create your views here.
+
+class ProductDetail(DetailView):
+    model = Product
+    template_name = 'store/view_products.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        data = cartData(self.request)
+        context['cartItems'] = data['cartItems']
+        context['order'] = data['order']
+        context['items'] = data['items']
+        return context
 
 def searchProducts(request):
 

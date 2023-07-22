@@ -16,6 +16,8 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=7, decimal_places=2)
     digital = models.BooleanField(default=False, null=True, blank=False)
     image = models.ImageField(null=True, blank=True)
+    slug = models.SlugField(null=False)
+    description = models.TextField(default="potangina mo", null=False)
 
     def __str__(self):
         return self.name
@@ -46,7 +48,6 @@ class Order(models.Model):
                 shipping = True
         return shipping
         
-
     @property
     def get_cart_total(self):
         orderitems = self.orderitem_set.all()
