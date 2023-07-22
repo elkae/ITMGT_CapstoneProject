@@ -8,6 +8,20 @@ from . utils import cookieCart, cartData, guestOrder
 
 # Create your views here.
 
+def searchProducts(request):
+
+    data = cartData(request)
+    cartItems = data['cartItems']
+    order = data['order']
+    items = data['items']
+
+    if request.method == "POST":
+        searched = request.POST['searched']
+        products = Product.objects.filter(name__contains=searched)
+        return render(request, 'store/search_products.html', {'searched':searched, 'products':products, 'items':items, 'order':order, 'cartItems': cartItems})
+    else:
+        return render(request, 'store/search_products.html', {'items':items, 'order':order, 'cartItems': cartItems})
+
 def store(request):
 
     data = cartData(request)

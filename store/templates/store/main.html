@@ -24,6 +24,10 @@
             margin-right: 5px;
         }
 
+        .bg-dark {
+	        background-color: #000000!important;
+        }
+
         #cart-container {
             display: flex;
             align-items: center;
@@ -90,8 +94,13 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="{% url 'store' %}">Store <span class="sr-only">(current)</span></a>
             </ul>
+            <form class="d-flex" style="margin-left: 320px;" method="POST" action="{% url 'search_products' %}">
+                {% csrf_token %}
+                <input class="form-control me-2" type="search" placeholder="Search Products" aria-label="Search" name="searched">
+                <button class="btn btn-outline-secondary" type="submit">Search</button>
+            </form>
             <div class="form-inline my-2 my-lg-0 ms-auto d-flex">
-                <a href="#" class="btn btn-warning">Login</a>
+                <a href="#" class="btn btn-warning" style="border-color: gray; background-color: gray; color: white;">Login</a>
                 <div id="cart-container">
                     <a href="{% url 'cart' %}">
                         <img id="cart-icon" src="{% static 'images/cart.png' %}">
